@@ -1,0 +1,30 @@
+	<!-- 配置数据源 -->
+	<!-- <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"> -->
+	<bean id="pooledDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<!-- 数据库驱动 -->
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<!-- 连接数据库的url -->
+		<property name="url" value="${jdbc.url}" />
+		<!-- 连接数据库的用户名 -->
+		<property name="username" value="${jdbc.username}" />
+		<!-- 连接数据库的密码 -->
+		<property name="password" value="${jdbc.password}" />
+		<!-- 最大连接数 -->
+		<property name="maxTotal" value="${jdbc.maxTotal}" />
+		<!-- 最大空闲连接 -->
+		<property name="maxldle" value="${jdbc.maxldle}" />
+		<!-- 初始化连接数 -->
+		<property name="initialSize" value="${jdbc.initialSize}" />
+	</bean>
+	
+		<!-- 配置处理器Handle ，映射U/firstController" 请求 -->
+	<bean name="/firstController" class="com.lee.controller.FirstController" />
+	<!-- 处理器映射器，将处理器Handle 的name 作为url 进行查找 -->
+	<bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping" />
+	<!-- 处理器适配器，配置对处理器中handleRequest() 方法的调用 -->
+	<bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter" />
+	<!-- 视图解析器 -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" />
+	
+	
+	
