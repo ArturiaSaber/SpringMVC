@@ -14,22 +14,54 @@
                         http://www.springframework.org/schema/tx 
                         http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
-	<!-- spring MVC配置，包含网站跳转逻辑的控制，配置 -->
-	<context:component-scan base-package="com.lee.controller"
-		use-default-filters="false">
+	
+	<context:component-scan base-package="com.lee.controller" use-default-filters="false">
+		<!-- spring MVC配置，包含网站跳转逻辑的控制，配置 -->
 		<!-- 只扫描控制器 -->
 		<context:include-filter type="annotation"
 			expression="org.springframework.stereotype.Controller"></context:include-filter>
 	</context:component-scan>
+	
+	<!-- 显示的装配自定义类型转换器，有多个converter时，最后定义的才有效，如后面定义的fastjson 多个converter如何配置 -->
+	<!-- <mvc:annotation-driven conversion-service="conversionService"/> -->
+	<!-- <bean id="conversionService"
+		class="org.springframework.context.support.ConversionServiceFactoryBean">
+		<property name="converters">
+			<list>
+				<bean class="com.lee.convert.DateConverter">
+					<constructor-arg type="java.lang.String" value="yyyy-MM-dd"></constructor-arg>
+				</bean>
+			</list>
+		</property>
+	</bean> -->
+	
+	<!-- <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="formatters">
+            <list>
+                <bean class="com.lee.convert.DateFormatter" />
+            </list>
+        </property>
+    </bean> -->
+	
 	<!-- 定义无Controller的path<->view直接映射 -->
 	<!-- 定义视图文件解析 -->
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/WEB-INF/view" />
+		<property name="prefix" value="/WEB-INF/view/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
+	
+	<mvc:interceptors>
+		<!-- 使用bean 直接定义在<mvc : i n terceptors>下面的拦截器将拦截所有请求 -->
+		<bean class="com.lee.intercepter.CustomerIntercepter" />
+	</mvc:interceptors>
+	
+	<!-- <mvc:annotation-driven />
+	<mvc:resources location="/js/" mapping="/js/**" /> -->
+	
 	<!-- 对静态资源文件的访问， 将无法mapping到Controller的path交给default servlet handler处理 -->
 	<mvc:default-servlet-handler />
+	
 	<mvc:annotation-driven>
 		<mvc:message-converters register-defaults="false">
 			<bean

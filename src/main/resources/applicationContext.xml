@@ -12,8 +12,8 @@
                            http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
                            http://www.springframework.org/schema/tx
                            http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
-    <!-- https://blog.csdn.net/u010378929/article/details/79057872 -->
     <context:component-scan base-package="com.lee.service" />
+    <!-- https://blog.csdn.net/u010378929/article/details/79057872 -->
     
 	<!-- 读取db . properties -->
 	<context:property-placeholder location="classpath:jdbc.properties" />
